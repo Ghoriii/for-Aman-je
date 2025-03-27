@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Aman</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff4d4d, #cc0000);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Floating Hearts */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: float 6s infinite ease-in-out;
+            z-index: 1;
+        }
+        
+        /* Letter Box */
+        .letter-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .letter-box::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed rgba(255, 69, 69, 0.5);
+            border-radius: 20px;
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        .to-aman {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff4d4d;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .click-me {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: #666;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Heart Page (hidden initially) */
+        .heart-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff4d4d, #cc0000);
+            z-index: 100;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .heart-shape {
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            transform: rotate(45deg);
+            margin: 30px auto;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .heart-shape::before,
+        .heart-shape::after {
+            content: '';
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart-shape::before {
+            top: -100px;
+            left: 0;
+        }
+        
+        .heart-shape::after {
+            top: 0;
+            left: -100px;
+        }
+        
+        .heart-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 80%;
+            color: #ff4d4d;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            z-index: 2;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: #ff4d4d;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 101;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(1); }
+            25% { transform: rotate(45deg) scale(1.1); }
+            50% { transform: rotate(45deg) scale(1); }
+            75% { transform: rotate(45deg) scale(1.1); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .to-aman {
+                font-size: 2rem;
+            }
+            
+            .heart-shape {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .heart-shape::before,
+            .heart-shape::after {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .heart-shape::before {
+                top: -75px;
+            }
+            
+            .heart-shape::after {
+                left: -75px;
+            }
+            
+            .heart-message {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="heart" style="top: 10%; left: 5%;">❤</div>
+    <div class="heart" style="top: 20%; right: 8%;">❤</div>
+    <div class="heart" style="top: 35%; left: 3%;">❤</div>
+    <div class="heart" style="top: 50%; right: 5%;">❤</div>
+    <div class="heart" style="top: 65%; left: 7%;">❤</div>
+    <div class="heart" style="top: 80%; right: 10%;">❤</div>
+    
+    <!-- Letter Box -->
+    <div class="letter-box" id="letterBox">
+        <div class="to-aman">To Aman</div>
+        <svg width="100" height="100" viewBox="0 0 100 100" style="margin: 20px auto;">
+            <path d="M50,30 L60,40 L70,30 L80,40 L70,50 L80,60 L70,70 L60,80 L50,90 L40,80 L30,70 L20,60 L30,50 L20,40 L30,30 L40,40 Z" fill="#ff4d4d"/>
+        </svg>
+        <div class="click-me">Click to open</div>
+    </div>
+    
+    <!-- Heart Page -->
+    <div class="heart-page" id="heartPage">
+        <button class="close-btn" id="closeBtn">×</button>
+        <div class="heart-shape">
+            <div class="heart-message">
+                Thank you so much Aman cutie for the watch! I love it so much! ❤
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create more floating hearts
+        function createHearts() {
+            const container = document.body;
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // Letter box click event
+        document.getElementById('letterBox').addEventListener('click', function() {
+            document.getElementById('heartPage').style.display = 'flex';
+        });
+        
+        // Close button event
+        document.getElementById('closeBtn').addEventListener('click', function() {
+            document.getElementById('heartPage').style.display = 'none';
+        });
+        
+        // Create hearts when page loads
+        window.onload = createHearts;
+    </script>
+</body>
+</html> 
